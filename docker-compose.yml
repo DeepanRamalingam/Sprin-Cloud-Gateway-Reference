@@ -1,0 +1,68 @@
+version: '3'
+services:
+ account-service:
+  image: account-service
+  build:
+   context: AccountService/
+  restart: always
+  network_mode: host
+  ports:
+   - 9001:9001
+  depends_on:
+   - employee-registry-service
+
+ employee-service:
+  image: employee-service
+  build:
+   context: EmployeeService/
+  restart: always
+  network_mode: host
+  ports:
+   - 9002:9002
+  depends_on:
+   - mongo-service
+   - employee-registry-service
+
+ employee-registry-service:
+  image: employee-registry
+  build:
+   context: EmployeeAppServiceRegistry/
+  restart: always
+  network_mode: host
+  ports:
+   - 8761:8761
+ 
+ gateway-service:
+  image: gateway-service
+  build:
+   context: GatewayService/
+  restart: always
+  network_mode: host
+  ports:
+   - 9000:9000
+  depends_on:
+   - mysql-service
+
+ mongo-service:
+  image: mongo:latest
+  command: mongod --port 27017
+  network_mode: host
+  restart: always
+  ports:
+   - 27017:27017
+
+ mysql-service:
+  image: mysql
+  network_mode: host
+  restart: always
+  environment:
+    MYSQL_ROOT_PASSWORD: root@123
+    MYSQL_USER: cgiuser
+    MYSQL_PASSWORD: Pass@123
+    MYSQL_DATABASE: cgicanadadb
+  ports:
+    - 3306:3306
+
+
+# Add a Dockerfile footification Service and here the run configuration to start the container
+# Add run configuration start the RabbitMQ Contaier

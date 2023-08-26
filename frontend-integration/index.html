@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee App</title>
+</head>
+<body>
+    <h2>Welcome to Employee App</h2>
+
+    <script>
+        console.log("Welcome to stackroute")
+
+        fetch("http://localhost:9000/employees",{
+            method:'GET',
+            headers:{
+                'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY0NzQ1NDU3NywiZXhwIjoxNjQ3NDU1MDc3fQ.LouPTY2bhz5UXjDOJwQK0UL-dOS8YEoKvGSCAhJJrMo'
+            }
+        })
+        .then((res)=>{
+            console.log(res);
+            return res.text();
+        })
+        .then((data)=>{
+            console.log(data);
+        })
+    </script>
+</body>
+</html>
